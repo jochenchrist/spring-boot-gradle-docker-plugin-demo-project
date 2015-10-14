@@ -1,0 +1,42 @@
+buildscript {
+    ext {
+        springBootVersion = '1.2.6.RELEASE'
+    }
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+        classpath('io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE')
+        classpath("de.jochenchrist:spring-boot-gradle-docker-plugin:1.0-SNAPSHOT")
+        classpath 'com.bmuschko:gradle-docker-plugin:2.6.1'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'spring-boot-docker'
+
+jar {
+    baseName = 'spring-boot-demo-service'
+    version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test') 
+}
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.7'
+}
